@@ -31,4 +31,47 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg HCURSOR OnQueryDragIcon();
 	DECLARE_MESSAGE_MAP()
+public:
+	//RR=0, HRN=1 버튼눌럿을때임
+	int m_rSelect;
+	afx_msg void OnBnClickedRadio1();
+	afx_msg void OnBnClickedRadio2();
+	afx_msg void OnBnClickedButtonRun();
+	afx_msg void OnBnClickedButtonQuit();
+	// 평균대기시간, 평균반환시간
+	CString m_strResultWait;
+	CString m_strResultReturn;
+	//프로세스별 도착시간
+	CString m_strP1Arrive;
+	CString m_strP2Arrive;
+	CString m_strP3Arrive;
+	CString m_strP4Arrive;
+	CString m_strP5Arrive;
+	CString m_strP6Arrive;
+	CString m_strP7Arrive;
+	CString m_strP8Arrive;
+	CString m_strP9Arrive;
+	CString m_strP10Arrive;
+	// 프로세스별 서비스시간
+	CString m_strP1Service;
+	CString m_strP2Service;
+	CString m_strP3Service;
+	CString m_strP4Service;
+	CString m_strP5Service;
+	CString m_strP6Service;
+	CString m_strP7Service;
+	CString m_strP8Service;
+	CString m_strP9Service;
+	CString m_strP10Service;
+	// 프로세스별 대기시간
+	CString m_strP1Wait;
+	CString m_strP2Wait;
+	CString m_strP3Wait;
+	CString m_strP4Wait;
+	CString m_strP5Wait;
+	CString m_strP6Wait;
+	CString m_strP7Wait;
+	CString m_strP8Wait;
+	CString m_strP9Wait;
+	CString m_strP10Wait;
 };

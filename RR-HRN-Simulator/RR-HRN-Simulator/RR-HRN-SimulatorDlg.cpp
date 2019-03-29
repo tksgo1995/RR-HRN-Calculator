@@ -51,6 +51,15 @@ END_MESSAGE_MAP()
 
 CRRHRNSimulatorDlg::CRRHRNSimulatorDlg(CWnd* pParent /*=nullptr*/)
 	: CDialogEx(IDD_RRHRNSIMULATOR_DIALOG, pParent)
+	, m_rSelect(0)
+	, m_strResultWait(_T(""))
+	, m_strResultReturn(_T(""))
+	, m_strP1Arrive(_T(""))
+	, m_strP2Arrive(_T(""))
+	, m_strP3Arrive(_T(""))
+	, m_strP4Arrive(_T(""))
+	, m_strP1Service(_T(""))
+	, m_strP1Wait(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -58,12 +67,49 @@ CRRHRNSimulatorDlg::CRRHRNSimulatorDlg(CWnd* pParent /*=nullptr*/)
 void CRRHRNSimulatorDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Radio(pDX, IDC_RADIO_RR, m_rSelect);
+	DDX_Text(pDX, IDC_EDIT_RESULT_WAIT, m_strResultWait);
+	DDX_Text(pDX, IDC_EDIT_RESULT_RETURN, m_strResultReturn);
+	DDX_Text(pDX, IDC_EDIT_P1_ARRIVE, m_strP1Arrive);
+	DDX_Text(pDX, IDC_EDIT_P2_ARRIVE, m_strP2Arrive);
+	DDX_Text(pDX, IDC_EDIT_P3_ARRIVE, m_strP3Arrive);
+	DDX_Text(pDX, IDC_EDIT_P4_ARRIVE, m_strP4Arrive);
+	DDX_Text(pDX, IDC_EDIT_P5_ARRIVE, m_strP5Arrive);
+	DDX_Text(pDX, IDC_EDIT_P6_ARRIVE, m_strP6Arrive);
+	DDX_Text(pDX, IDC_EDIT_P7_ARRIVE, m_strP7Arrive);
+	DDX_Text(pDX, IDC_EDIT_P8_ARRIVE, m_strP8Arrive);
+	DDX_Text(pDX, IDC_EDIT_P9_ARRIVE, m_strP9Arrive);
+	DDX_Text(pDX, IDC_EDIT_P10_ARRIVE, m_strP10Arrive);
+	DDX_Text(pDX, IDC_EDIT_P1_SERVICE, m_strP1Service);
+	DDX_Text(pDX, IDC_EDIT_P2_SERVICE, m_strP2Service);
+	DDX_Text(pDX, IDC_EDIT_P3_SERVICE, m_strP3Service);
+	DDX_Text(pDX, IDC_EDIT_P4_SERVICE, m_strP4Service);
+	DDX_Text(pDX, IDC_EDIT_P5_SERVICE, m_strP5Service);
+	DDX_Text(pDX, IDC_EDIT_P6_SERVICE, m_strP6Service);
+	DDX_Text(pDX, IDC_EDIT_P7_SERVICE, m_strP7Service);
+	DDX_Text(pDX, IDC_EDIT_P8_SERVICE, m_strP8Service);
+	DDX_Text(pDX, IDC_EDIT_P9_SERVICE, m_strP9Service);
+	DDX_Text(pDX, IDC_EDIT_P10_SERVICE, m_strP10Service);
+	DDX_Text(pDX, IDC_EDIT_P1_WAIT, m_strP1Wait);
+	DDX_Text(pDX, IDC_EDIT_P2_WAIT, m_strP2Wait);
+	DDX_Text(pDX, IDC_EDIT_P3_WAIT, m_strP3Wait);
+	DDX_Text(pDX, IDC_EDIT_P4_WAIT, m_strP4Wait);
+	DDX_Text(pDX, IDC_EDIT_P5_WAIT, m_strP5Wait);
+	DDX_Text(pDX, IDC_EDIT_P6_WAIT, m_strP6Wait);
+	DDX_Text(pDX, IDC_EDIT_P7_WAIT, m_strP7Wait);
+	DDX_Text(pDX, IDC_EDIT_P8_WAIT, m_strP8Wait);
+	DDX_Text(pDX, IDC_EDIT_P9_WAIT, m_strP9Wait);
+	DDX_Text(pDX, IDC_EDIT_P10_WAIT, m_strP10Wait);
 }
 
 BEGIN_MESSAGE_MAP(CRRHRNSimulatorDlg, CDialogEx)
 	ON_WM_SYSCOMMAND()
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
+	ON_BN_CLICKED(IDC_RADIO_RR, &CRRHRNSimulatorDlg::OnBnClickedRadio1)
+	ON_BN_CLICKED(IDC_RADIO_HRN, &CRRHRNSimulatorDlg::OnBnClickedRadio2)
+	ON_BN_CLICKED(IDC_BUTTON_RUN, &CRRHRNSimulatorDlg::OnBnClickedButtonRun)
+	ON_BN_CLICKED(IDC_BUTTON_QUIT, &CRRHRNSimulatorDlg::OnBnClickedButtonQuit)
 END_MESSAGE_MAP()
 
 
@@ -153,3 +199,28 @@ HCURSOR CRRHRNSimulatorDlg::OnQueryDragIcon()
 	return static_cast<HCURSOR>(m_hIcon);
 }
 
+
+
+void CRRHRNSimulatorDlg::OnBnClickedRadio1()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	
+}
+
+
+void CRRHRNSimulatorDlg::OnBnClickedRadio2()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+void CRRHRNSimulatorDlg::OnBnClickedButtonRun()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
+
+
+void CRRHRNSimulatorDlg::OnBnClickedButtonQuit()
+{
+	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+}
