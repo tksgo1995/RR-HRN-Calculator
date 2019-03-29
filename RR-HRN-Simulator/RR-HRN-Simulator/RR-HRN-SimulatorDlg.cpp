@@ -145,7 +145,7 @@ BOOL CRRHRNSimulatorDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-	AfxMessageBox(_T("Hello Git!!"));
+	All_Wait_EnableWindow(FALSE);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -204,23 +204,64 @@ HCURSOR CRRHRNSimulatorDlg::OnQueryDragIcon()
 void CRRHRNSimulatorDlg::OnBnClickedRadio1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	
+	All_Wait_EnableWindow(FALSE);
 }
 
 
 void CRRHRNSimulatorDlg::OnBnClickedRadio2()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	All_Wait_EnableWindow(TRUE);
 }
 
 
 void CRRHRNSimulatorDlg::OnBnClickedButtonRun()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	UpdateData(TRUE);
+	if (!m_rSelect)//RR
+	{
+		AfxMessageBox(_T("라운드로빈!"));
+		RoundRobin(); // 산해 이 함수를 구현하면 됨
+	}
+	else
+	{
+		AfxMessageBox(_T("HRN!"));
+		HRN(); // 영태 이 함수를 구현하면 됨
+	}
 }
 
 
 void CRRHRNSimulatorDlg::OnBnClickedButtonQuit()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
+	PostQuitMessage(0);
+}
+
+
+void CRRHRNSimulatorDlg::All_Wait_EnableWindow(int b)
+{
+	// TODO: 여기에 구현 코드 추가.
+	GetDlgItem(IDC_EDIT_P1_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P2_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P3_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P4_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P5_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P6_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P7_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P8_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P9_WAIT)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P10_WAIT)->EnableWindow(b);
+}
+
+
+void CRRHRNSimulatorDlg::RoundRobin()
+{
+	// TODO: 여기에 구현 코드 추가.
+}
+
+
+void CRRHRNSimulatorDlg::HRN()
+{
+	// TODO: 여기에 구현 코드 추가.
 }

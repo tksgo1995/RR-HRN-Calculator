@@ -74,4 +74,7 @@ public:
 	CString m_strP8Wait;
 	CString m_strP9Wait;
 	CString m_strP10Wait;
+	void All_Wait_EnableWindow(int b);
+	void RoundRobin();
+	void HRN();
 };
