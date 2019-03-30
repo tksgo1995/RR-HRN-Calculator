@@ -77,4 +77,17 @@ public:
 	void All_Wait_EnableWindow(int b);
 	void RoundRobin();
 	void HRN();
+	// 프로세스별 우선순위
+	CString m_strP1Priority;
+	CString m_strP2Priority;
+	CString m_strP3Priority;
+	CString m_strP4Priority;
+	CString m_strP5Priority;
+	CString m_strP6Priority;
+	CString m_strP7Priority;
+	CString m_strP8Priority;
+	CString m_strP9Priority;
+	CString m_strP10Priority;
+	void All_Priority_EnableWindow(int b);
+	void All_Arrive_EnableWindow(int b);
 };

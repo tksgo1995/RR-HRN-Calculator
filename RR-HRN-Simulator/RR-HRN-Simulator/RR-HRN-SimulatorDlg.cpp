@@ -60,6 +60,7 @@ CRRHRNSimulatorDlg::CRRHRNSimulatorDlg(CWnd* pParent /*=nullptr*/)
 	, m_strP4Arrive(_T(""))
 	, m_strP1Service(_T(""))
 	, m_strP1Wait(_T(""))
+	, m_strP1Priority(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -100,6 +101,16 @@ void CRRHRNSimulatorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_P8_WAIT, m_strP8Wait);
 	DDX_Text(pDX, IDC_EDIT_P9_WAIT, m_strP9Wait);
 	DDX_Text(pDX, IDC_EDIT_P10_WAIT, m_strP10Wait);
+	DDX_Text(pDX, IDC_EDIT_P1_PRIORITY, m_strP1Priority);
+	DDX_Text(pDX, IDC_EDIT_P2_PRIORITY, m_strP2Priority);
+	DDX_Text(pDX, IDC_EDIT_P3_PRIORITY, m_strP3Priority);
+	DDX_Text(pDX, IDC_EDIT_P4_PRIORITY, m_strP4Priority);
+	DDX_Text(pDX, IDC_EDIT_P5_PRIORITY, m_strP5Priority);
+	DDX_Text(pDX, IDC_EDIT_P6_PRIORITY, m_strP6Priority);
+	DDX_Text(pDX, IDC_EDIT_P7_PRIORITY, m_strP7Priority);
+	DDX_Text(pDX, IDC_EDIT_P8_PRIORITY, m_strP8Priority);
+	DDX_Text(pDX, IDC_EDIT_P9_PRIORITY, m_strP9Priority);
+	DDX_Text(pDX, IDC_EDIT_P10_PRIORITY, m_strP10Priority);
 }
 
 BEGIN_MESSAGE_MAP(CRRHRNSimulatorDlg, CDialogEx)
@@ -146,6 +157,7 @@ BOOL CRRHRNSimulatorDlg::OnInitDialog()
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
 	All_Wait_EnableWindow(FALSE);
+	All_Priority_EnableWindow(FALSE);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
 }
@@ -205,6 +217,8 @@ void CRRHRNSimulatorDlg::OnBnClickedRadio1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	All_Wait_EnableWindow(FALSE);
+	All_Priority_EnableWindow(FALSE);
+	All_Arrive_EnableWindow(TRUE);
 }
 
 
@@ -212,6 +226,8 @@ void CRRHRNSimulatorDlg::OnBnClickedRadio2()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
 	All_Wait_EnableWindow(TRUE);
+	All_Priority_EnableWindow(TRUE);
+	All_Arrive_EnableWindow(FALSE);
 }
 
 
@@ -264,5 +280,36 @@ void CRRHRNSimulatorDlg::RoundRobin()
 void CRRHRNSimulatorDlg::HRN()
 {
 	// TODO: 여기에 구현 코드 추가.
-	AfxMessageBox(_T("Hello world"));
+}
+
+
+void CRRHRNSimulatorDlg::All_Priority_EnableWindow(int b)
+{
+	// TODO: 여기에 구현 코드 추가.
+	GetDlgItem(IDC_EDIT_P1_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P2_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P3_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P4_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P5_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P6_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P7_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P8_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P9_PRIORITY)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P10_PRIORITY)->EnableWindow(b);
+}
+
+
+void CRRHRNSimulatorDlg::All_Arrive_EnableWindow(int b)
+{
+	// TODO: 여기에 구현 코드 추가.
+	GetDlgItem(IDC_EDIT_P1_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P2_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P3_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P4_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P5_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P6_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P7_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P8_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P9_ARRIVE)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P10_ARRIVE)->EnableWindow(b);
 }

@@ -41,8 +41,19 @@
 #define IDC_EDIT_P10_WAIT               1032
 #define IDC_BUTTON_RUN                  1033
 #define IDC_EDIT_RESULT_WAIT            1034
+#define IDC_EDIT_P1_PRIORITY            1035
 #define IDC_EDIT_RESULT_RETURN          1036
 #define IDC_BUTTON_QUIT                 1037
+#define IDC_EDIT_P2_PRIORITY            1038
+#define IDC_EDIT_P9_PRIORITY            1039
+#define IDC_EDIT_P3_PRIORITY            1040
+#define IDC_EDIT_P4_PRIORITY            1041
+#define IDC_EDIT_P5_PRIORITY            1042
+#define IDC_EDIT_P6_PRIORITY            1043
+#define IDC_EDIT_P7_PRIORITY            1044
+#define IDC_EDIT_P8_PRIORITY            1045
+#define IDC_EDIT_P10_WAIT2              1046
+#define IDC_EDIT_P10_PRIORITY           1046
 
 // Next default values for new objects
 // 
