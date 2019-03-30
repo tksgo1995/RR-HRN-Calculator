@@ -61,6 +61,7 @@ CRRHRNSimulatorDlg::CRRHRNSimulatorDlg(CWnd* pParent /*=nullptr*/)
 	, m_strP1Service(_T(""))
 	, m_strP1Wait(_T(""))
 	, m_strP1Priority(_T(""))
+	, m_strP1Return(_T(""))
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -111,6 +112,16 @@ void CRRHRNSimulatorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_EDIT_P8_PRIORITY, m_strP8Priority);
 	DDX_Text(pDX, IDC_EDIT_P9_PRIORITY, m_strP9Priority);
 	DDX_Text(pDX, IDC_EDIT_P10_PRIORITY, m_strP10Priority);
+	DDX_Text(pDX, IDC_EDIT_P1_RETURN, m_strP1Return);
+	DDX_Text(pDX, IDC_EDIT_P2_RETURN, m_strP2Return);
+	DDX_Text(pDX, IDC_EDIT_P3_RETURN, m_strP3Return);
+	DDX_Text(pDX, IDC_EDIT_P4_RETURN, m_strP4Return);
+	DDX_Text(pDX, IDC_EDIT_P5_RETURN, m_strP5Return);
+	DDX_Text(pDX, IDC_EDIT_P6_RETURN, m_strP6Return);
+	DDX_Text(pDX, IDC_EDIT_P7_RETURN, m_strP7Return);
+	DDX_Text(pDX, IDC_EDIT_P8_RETURN, m_strP8Return);
+	DDX_Text(pDX, IDC_EDIT_P9_RETURN, m_strP9Return);
+	DDX_Text(pDX, IDC_EDIT_P10_RETURN, m_strP10Return);
 }
 
 BEGIN_MESSAGE_MAP(CRRHRNSimulatorDlg, CDialogEx)
@@ -156,7 +167,6 @@ BOOL CRRHRNSimulatorDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 작은 아이콘을 설정합니다.
 
 	// TODO: 여기에 추가 초기화 작업을 추가합니다.
-	All_Wait_EnableWindow(FALSE);
 	All_Priority_EnableWindow(FALSE);
 
 	return TRUE;  // 포커스를 컨트롤에 설정하지 않으면 TRUE를 반환합니다.
@@ -216,7 +226,6 @@ HCURSOR CRRHRNSimulatorDlg::OnQueryDragIcon()
 void CRRHRNSimulatorDlg::OnBnClickedRadio1()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	All_Wait_EnableWindow(FALSE);
 	All_Priority_EnableWindow(FALSE);
 	All_Arrive_EnableWindow(TRUE);
 }
@@ -225,7 +234,6 @@ void CRRHRNSimulatorDlg::OnBnClickedRadio1()
 void CRRHRNSimulatorDlg::OnBnClickedRadio2()
 {
 	// TODO: 여기에 컨트롤 알림 처리기 코드를 추가합니다.
-	All_Wait_EnableWindow(TRUE);
 	All_Priority_EnableWindow(TRUE);
 	All_Arrive_EnableWindow(FALSE);
 }
@@ -274,6 +282,29 @@ void CRRHRNSimulatorDlg::All_Wait_EnableWindow(int b)
 void CRRHRNSimulatorDlg::RoundRobin()
 {
 	// TODO: 여기에 구현 코드 추가.
+	UpdateData(TRUE);
+	int TotalRunnningTime = 0, PS[10];
+
+	// 총 실행시간 더하기
+	PS[0] = _tstoi(m_strP1Arrive);
+	PS[1] = _tstoi(m_strP2Arrive);
+	PS[2] = _tstoi(m_strP3Arrive);
+	PS[3] = _tstoi(m_strP4Arrive);
+	PS[4] = _tstoi(m_strP5Arrive);
+	PS[5] = _tstoi(m_strP6Arrive);
+	PS[6] = _tstoi(m_strP7Arrive);
+	PS[7] = _tstoi(m_strP8Arrive);
+	PS[8] = _tstoi(m_strP9Arrive);
+	PS[9] = _tstoi(m_strP10Arrive);
+	for (int i : PS)
+	{
+		TotalRunnningTime += i;
+	}
+
+	for (int i = 0; i < TotalRunnningTime; i++)
+	{
+
+	}
 }
 
 
@@ -312,4 +343,20 @@ void CRRHRNSimulatorDlg::All_Arrive_EnableWindow(int b)
 	GetDlgItem(IDC_EDIT_P8_ARRIVE)->EnableWindow(b);
 	GetDlgItem(IDC_EDIT_P9_ARRIVE)->EnableWindow(b);
 	GetDlgItem(IDC_EDIT_P10_ARRIVE)->EnableWindow(b);
+}
+
+
+void CRRHRNSimulatorDlg::All_Return_EnableWindow(int b)
+{
+	// TODO: 여기에 구현 코드 추가.
+	GetDlgItem(IDC_EDIT_P1_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P2_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P3_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P4_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P5_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P6_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P7_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P8_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P9_RETURN)->EnableWindow(b);
+	GetDlgItem(IDC_EDIT_P10_RETURN)->EnableWindow(b);
 }

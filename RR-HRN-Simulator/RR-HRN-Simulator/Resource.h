@@ -54,6 +54,17 @@
 #define IDC_EDIT_P8_PRIORITY            1045
 #define IDC_EDIT_P10_WAIT2              1046
 #define IDC_EDIT_P10_PRIORITY           1046
+#define IDC_EDIT_P1_RETURN              1047
+#define IDC_EDIT_P2_RETURN              1048
+#define IDC_EDIT_P9_RETURN              1049
+#define IDC_EDIT_P3_RETURN              1050
+#define IDC_EDIT_P4_RETURN              1051
+#define IDC_EDIT_P5_RETURN              1052
+#define IDC_EDIT_P6_RETURN              1053
+#define IDC_EDIT_P7_RETURN              1054
+#define IDC_EDIT_P8_RETURN              1055
+#define IDC_EDIT_P10_PRIORITY2          1056
+#define IDC_EDIT_P10_RETURN             1056
 
 // Next default values for new objects
 // 

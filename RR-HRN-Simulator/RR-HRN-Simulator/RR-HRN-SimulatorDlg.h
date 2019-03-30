@@ -90,4 +90,16 @@ public:
 	CString m_strP10Priority;
 	void All_Priority_EnableWindow(int b);
 	void All_Arrive_EnableWindow(int b);
+	// 프로세스별 반환시간
+	CString m_strP1Return;
+	CString m_strP2Return;
+	CString m_strP3Return;
+	CString m_strP4Return;
+	CString m_strP5Return;
+	CString m_strP6Return;
+	CString m_strP7Return;
+	CString m_strP8Return;
+	CString m_strP9Return;
+	CString m_strP10Return;
+	void All_Return_EnableWindow(int b);
 };
