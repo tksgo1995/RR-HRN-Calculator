@@ -245,12 +245,10 @@ void CRRHRNSimulatorDlg::OnBnClickedButtonRun()
 	UpdateData(TRUE);
 	if (!m_rSelect)//RR
 	{
-		AfxMessageBox(_T("라운드로빈!"));
 		RoundRobin(); // 산해 이 함수를 구현하면 됨
 	}
 	else
 	{
-		AfxMessageBox(_T("HRN!"));
 		HRN(); // 영태 이 함수를 구현하면 됨
 	}
 }
@@ -281,117 +279,137 @@ void CRRHRNSimulatorDlg::All_Wait_EnableWindow(int b)
 
 void CRRHRNSimulatorDlg::RoundRobin()
 {
-	/*
 	// TODO: 여기에 구현 코드 추가.
 	UpdateData(TRUE);
-	int TotalRunnningTime = 0, 
+	int TotalRunnningTime = 0,
 		PS_ARRIVE[10], PS_WAIT[10] = { 0, }, PS_RETURN[10] = { 0, }, PS_PRIORITY[10] = { 0, },
-		PS_SERVICE[10], MaxPriority = 0, TimeSlice = 4, PS_SERVICE_COPY[10];
-
-	// 도착시간, 서비스시간 가져오기, 총 실행시간 구하기
-	PS_ARRIVE[0] = _tstoi(m_strP1Arrive);
-	PS_ARRIVE[1] = _tstoi(m_strP2Arrive);
-	PS_ARRIVE[2] = _tstoi(m_strP3Arrive);
-	PS_ARRIVE[3] = _tstoi(m_strP4Arrive);
-	PS_ARRIVE[4] = _tstoi(m_strP5Arrive);
-	PS_ARRIVE[5] = _tstoi(m_strP6Arrive);
-	PS_ARRIVE[6] = _tstoi(m_strP7Arrive);
-	PS_ARRIVE[7] = _tstoi(m_strP8Arrive);
-	PS_ARRIVE[8] = _tstoi(m_strP9Arrive);
-	PS_ARRIVE[9] = _tstoi(m_strP10Arrive);
-	//-----------------------------------
-	PS_SERVICE[0] = _tstoi(m_strP1Service);
-	PS_SERVICE[1] = _tstoi(m_strP2Service);
-	PS_SERVICE[2] = _tstoi(m_strP3Service);
-	PS_SERVICE[3] = _tstoi(m_strP4Service);
-	PS_SERVICE[4] = _tstoi(m_strP5Service);
-	PS_SERVICE[5] = _tstoi(m_strP6Service);
-	PS_SERVICE[6] = _tstoi(m_strP7Service);
-	PS_SERVICE[7] = _tstoi(m_strP8Service);
-	PS_SERVICE[8] = _tstoi(m_strP9Service);
-	PS_SERVICE[9] = _tstoi(m_strP10Service);
-	for (int i : PS_SERVICE)
-	{
-		TotalRunnningTime += i;
-	}
-	//-----------------------------------
+		PS_SERVICE[10], MaxPriority = 0, TimeSlice = 0, PS_SERVICE_COPY[10], sw = 0;
+	// 도착시간, 서비스시간구하기, 서비스시간 복사, 총 실행시간 구하기
 	for (int i = 0; i < 10; i++)
 	{
+		PS_ARRIVE[i] = _tstoi(m_strArrive[i]);
+		PS_SERVICE[i] = _tstoi(m_strService[i]);
+		if (PS_SERVICE[i] == 0)
+		{
+			PS_SERVICE[i] = -1;
+		}
 		PS_SERVICE_COPY[i] = PS_SERVICE[i];
+		TotalRunnningTime += PS_SERVICE[i];
 	}
-	// 1.우선순위 부여
+	// 대기시간구하기
 	for (int i = 0; i < TotalRunnningTime; i++)
 	{
-		// 1.1.1. 현재 실행중인 프로세스들 모두 우선순위++;
-		// 1.1.2. 현 시간에 도착한 프로세스에 우선순위++;
-		for (int j = 0; j < 10; j++)
+		// 1.1. 현재 진행중인 프로세스가 없을때
+		if (!sw)
 		{
-			if (PS_ARRIVE[j] == i && (PS_SERVICE[j] != 0))
+			// 1. 현시간에 시작된 프로세스 우선순위++;
+			for (int j = 0; j < 10; j++)
 			{
-				PS_PRIORITY[j]++;
+				if (PS_ARRIVE[j] == i)
+				{
+					PS_PRIORITY[j]++;
+				}
 			}
-		}
-		// 1.2. 우선순위가 가장 높은 프로세스 실행
-		for (int j = 0; j < 10; j++)
-		{
-			if (PS_PRIORITY[j] > PS_PRIORITY[MaxPriority])
+			// 1.1.1. 프로세스 우선순위중 가장 높은것 구하기 MaxPriority
+			for (int j = 0; j < 10; j++)
 			{
-				MaxPriority = j;
+				if (PS_PRIORITY[j] > PS_PRIORITY[MaxPriority])
+				{
+					MaxPriority = j;
+				}
 			}
+			PS_SERVICE_COPY[MaxPriority]--;
+			TimeSlice++;
+			// 나머지 프로세스들에 대기값들을 더한다.
+			for (int j = 0; j < 10; j++)
+			{
+				if ((j != MaxPriority) && (PS_SERVICE_COPY[j] > 0) && 
+					(PS_ARRIVE[j] <= i))
+				{
+					PS_WAIT[j]++;
+					PS_PRIORITY[j]++;
+				}
+			}
+			sw = 1;
 		}
-		// 1.3. 우선순위가 가장 높은 프로세스 타임슬라이스만큼 실행
-		if (PS_SERVICE_COPY[MaxPriority] >= 4)
-		{
-			PS_SERVICE_COPY[MaxPriority] -= 3;
-			i += 3;
-			PS_PRIORITY[MaxPriority] = 0;
-			continue;
-		}
-		// 1.4. 실행시간이 TimeSlice보다 작을경우 남은 값만 실행
+		// 1.2. 현재 진행준인 프로세스가 있을때
 		else
 		{
-			PS_RETURN[MaxPriority] = PS_SERVICE_COPY[MaxPriority] + i;
-			i += (PS_SERVICE_COPY[MaxPriority] - 1);
-			PS_SERVICE_COPY[MaxPriority] = 0;
-			PS_PRIORITY[MaxPriority] = 0;
-			continue;
+			TimeSlice++;
+			if (PS_SERVICE_COPY[MaxPriority] > 0)
+			{
+				// 1. 현시간에 시작된 프로세스 우선순위++;
+				for (int j = 0; j < 10; j++)
+				{
+					if (PS_ARRIVE[j] == i)
+					{
+						PS_PRIORITY[j]++;
+					}
+				}
+				PS_SERVICE_COPY[MaxPriority]--;
+				// 나머지 프로세스들에 대기값들을 더한다.
+				for (int j = 0; j < 10; j++)
+				{
+					if ((j != MaxPriority) && (PS_SERVICE_COPY[j] > 0) &&
+						(PS_ARRIVE[j] <= i))
+					{
+						PS_WAIT[j]++;
+						PS_PRIORITY[j]++;
+					}
+				}
+			}
+			// 프로세스가 끝날때
+			else
+			{
+				sw = 0;
+				PS_PRIORITY[MaxPriority] = 0;
+				MaxPriority = 0;
+				TimeSlice = 0;
+				i--;
+				continue;
+			}
+			if (TimeSlice == 4)
+			{
+				sw = 0;
+				PS_PRIORITY[MaxPriority] = 0;
+				MaxPriority = 0;
+				TimeSlice = 0;
+			}
 		}
-		MaxPriority = 0;
+		
+		// 2. 우선순위가 가장 높은 프로세스 실행 및 우선순위 초기화
+		// 3. 남은프로세스들은 우선순위 높여주기(이번에 도착한애는 우선순위 높이면 안됨)
 	}
+	// 반환시간 = 서비스시간 + 대기시간 - 도차시간, 반환시간 대입, 대기시간 대입
+	int resultWait = 0, resultReturn = 0, count = 0;
 
-	// 반환시간 = 서비스시간 + 대기시간
 	for (int i = 0; i < 10; i++)
 	{
 		PS_RETURN[i] = PS_SERVICE[i] + PS_WAIT[i];
+		if ((PS_RETURN[i] != -1))
+		{
+			m_strReturn[i].Format(_T("%d"), PS_RETURN[i]);
+			m_strWait[i].Format(_T("%d"), PS_WAIT[i]);
+			count++;
+		}
+		else
+		{
+			m_strReturn[i] = _T("");
+			m_strWait[i] = _T("");
+		}
+		resultReturn += PS_RETURN[i];
+		resultWait += PS_WAIT[i];
 	}
-	// 반환시간 대입
-	m_strP1Return.Format(_T("%d"), PS_RETURN[0]);
-	m_strP2Return.Format(_T("%d"), PS_RETURN[1]);
-	m_strP3Return.Format(_T("%d"), PS_RETURN[2]);
-	m_strP4Return.Format(_T("%d"), PS_RETURN[3]);
-	m_strP5Return.Format(_T("%d"), PS_RETURN[4]);
-	m_strP6Return.Format(_T("%d"), PS_RETURN[5]);
-	m_strP7Return.Format(_T("%d"), PS_RETURN[6]);
-	m_strP8Return.Format(_T("%d"), PS_RETURN[7]);
-	m_strP9Return.Format(_T("%d"), PS_RETURN[8]);
-	m_strP10Return.Format(_T("%d"), PS_RETURN[9]);
-	// 대기시간 대입
-	m_strP1Wait.Format(_T("%d"), PS_WAIT[0]);
-	m_strP2Wait.Format(_T("%d"), PS_WAIT[1]);
-	m_strP3Wait.Format(_T("%d"), PS_WAIT[2]);
-	m_strP4Wait.Format(_T("%d"), PS_WAIT[3]);
-	m_strP5Wait.Format(_T("%d"), PS_WAIT[4]);
-	m_strP6Wait.Format(_T("%d"), PS_WAIT[5]);
-	m_strP7Wait.Format(_T("%d"), PS_WAIT[6]);
-	m_strP8Wait.Format(_T("%d"), PS_WAIT[7]);
-	m_strP9Wait.Format(_T("%d"), PS_WAIT[8]);
-	m_strP10Wait.Format(_T("%d"), PS_WAIT[9]);
-	UpdateData(FALSE);*/
+	m_strResultReturn.Format(_T("%.2f"), (float)resultReturn / count);
+	m_strResultWait.Format(_T("%.2f"), (float)resultWait / count);
+
+	UpdateData(FALSE);
 }
 
 
 void CRRHRNSimulatorDlg::HRN()
 {
+	// TODO: 여기에 구현 코드 추가.
 	double AvgSum = 0;
 	double RetSum = 0;
 	double AvgWait[10] = { 0, };
@@ -408,11 +426,11 @@ void CRRHRNSimulatorDlg::HRN()
 	for (int i = 0; i < 10; i++) {
 		Priority[i] = _wtof(m_strService[i]) + _wtof(m_strWait[i]) / _wtof(m_strService[i]);
 	}
-	
+
 	for (int i = 0; i < 10; i++) {
-		Pr[i].Format(_T("%.2lf", ), Priority[i]);
+		Pr[i].Format(_T("%.2lf"), Priority[i]);
 	}
-	for(int i =0; i<10;i++){
+	for (int i = 0; i < 10; i++) {
 		m_strPriority[i] = Pr[i];
 	}
 	// ==============================================
@@ -421,7 +439,7 @@ void CRRHRNSimulatorDlg::HRN()
 		AvgWait[i] = _wtoi(m_strWait[i]);
 		AvgSum += AvgWait[i];
 	}
-	AllAvg.Format(_T("%.2lf"),AvgSum / 10);
+	AllAvg.Format(_T("%.2lf"), AvgSum / 10);
 	m_strResultWait = AllAvg;
 	// ===============================================
 
