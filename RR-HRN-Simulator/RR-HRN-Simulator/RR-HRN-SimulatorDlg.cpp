@@ -54,15 +54,15 @@ CRRHRNSimulatorDlg::CRRHRNSimulatorDlg(CWnd* pParent /*=nullptr*/)
 	, m_rSelect(0)
 	, m_strResultWait(_T(""))
 	, m_strResultReturn(_T(""))
-	, m_strP1Arrive(_T(""))
-	, m_strP2Arrive(_T(""))
-	, m_strP3Arrive(_T(""))
-	, m_strP4Arrive(_T(""))
-	, m_strP1Service(_T(""))
-	, m_strP1Wait(_T(""))
-	, m_strP1Priority(_T(""))
-	, m_strP1Return(_T(""))
 {
+	for (int i = 0; i < 10; i++)
+	{
+		m_strArrive[i] = _T("");
+		m_strService[i] = _T("");
+		m_strWait[i] = _T("");
+		m_strPriority[i] = _T("");
+		m_strReturn[i] = _T("");
+	}
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
@@ -72,56 +72,56 @@ void CRRHRNSimulatorDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Radio(pDX, IDC_RADIO_RR, m_rSelect);
 	DDX_Text(pDX, IDC_EDIT_RESULT_WAIT, m_strResultWait);
 	DDX_Text(pDX, IDC_EDIT_RESULT_RETURN, m_strResultReturn);
-	DDX_Text(pDX, IDC_EDIT_P1_ARRIVE, m_strP1Arrive);
-	DDX_Text(pDX, IDC_EDIT_P2_ARRIVE, m_strP2Arrive);
-	DDX_Text(pDX, IDC_EDIT_P3_ARRIVE, m_strP3Arrive);
-	DDX_Text(pDX, IDC_EDIT_P4_ARRIVE, m_strP4Arrive);
-	DDX_Text(pDX, IDC_EDIT_P5_ARRIVE, m_strP5Arrive);
-	DDX_Text(pDX, IDC_EDIT_P6_ARRIVE, m_strP6Arrive);
-	DDX_Text(pDX, IDC_EDIT_P7_ARRIVE, m_strP7Arrive);
-	DDX_Text(pDX, IDC_EDIT_P8_ARRIVE, m_strP8Arrive);
-	DDX_Text(pDX, IDC_EDIT_P9_ARRIVE, m_strP9Arrive);
-	DDX_Text(pDX, IDC_EDIT_P10_ARRIVE, m_strP10Arrive);
-	DDX_Text(pDX, IDC_EDIT_P1_SERVICE, m_strP1Service);
-	DDX_Text(pDX, IDC_EDIT_P2_SERVICE, m_strP2Service);
-	DDX_Text(pDX, IDC_EDIT_P3_SERVICE, m_strP3Service);
-	DDX_Text(pDX, IDC_EDIT_P4_SERVICE, m_strP4Service);
-	DDX_Text(pDX, IDC_EDIT_P5_SERVICE, m_strP5Service);
-	DDX_Text(pDX, IDC_EDIT_P6_SERVICE, m_strP6Service);
-	DDX_Text(pDX, IDC_EDIT_P7_SERVICE, m_strP7Service);
-	DDX_Text(pDX, IDC_EDIT_P8_SERVICE, m_strP8Service);
-	DDX_Text(pDX, IDC_EDIT_P9_SERVICE, m_strP9Service);
-	DDX_Text(pDX, IDC_EDIT_P10_SERVICE, m_strP10Service);
-	DDX_Text(pDX, IDC_EDIT_P1_WAIT, m_strP1Wait);
-	DDX_Text(pDX, IDC_EDIT_P2_WAIT, m_strP2Wait);
-	DDX_Text(pDX, IDC_EDIT_P3_WAIT, m_strP3Wait);
-	DDX_Text(pDX, IDC_EDIT_P4_WAIT, m_strP4Wait);
-	DDX_Text(pDX, IDC_EDIT_P5_WAIT, m_strP5Wait);
-	DDX_Text(pDX, IDC_EDIT_P6_WAIT, m_strP6Wait);
-	DDX_Text(pDX, IDC_EDIT_P7_WAIT, m_strP7Wait);
-	DDX_Text(pDX, IDC_EDIT_P8_WAIT, m_strP8Wait);
-	DDX_Text(pDX, IDC_EDIT_P9_WAIT, m_strP9Wait);
-	DDX_Text(pDX, IDC_EDIT_P10_WAIT, m_strP10Wait);
-	DDX_Text(pDX, IDC_EDIT_P1_PRIORITY, m_strP1Priority);
-	DDX_Text(pDX, IDC_EDIT_P2_PRIORITY, m_strP2Priority);
-	DDX_Text(pDX, IDC_EDIT_P3_PRIORITY, m_strP3Priority);
-	DDX_Text(pDX, IDC_EDIT_P4_PRIORITY, m_strP4Priority);
-	DDX_Text(pDX, IDC_EDIT_P5_PRIORITY, m_strP5Priority);
-	DDX_Text(pDX, IDC_EDIT_P6_PRIORITY, m_strP6Priority);
-	DDX_Text(pDX, IDC_EDIT_P7_PRIORITY, m_strP7Priority);
-	DDX_Text(pDX, IDC_EDIT_P8_PRIORITY, m_strP8Priority);
-	DDX_Text(pDX, IDC_EDIT_P9_PRIORITY, m_strP9Priority);
-	DDX_Text(pDX, IDC_EDIT_P10_PRIORITY, m_strP10Priority);
-	DDX_Text(pDX, IDC_EDIT_P1_RETURN, m_strP1Return);
-	DDX_Text(pDX, IDC_EDIT_P2_RETURN, m_strP2Return);
-	DDX_Text(pDX, IDC_EDIT_P3_RETURN, m_strP3Return);
-	DDX_Text(pDX, IDC_EDIT_P4_RETURN, m_strP4Return);
-	DDX_Text(pDX, IDC_EDIT_P5_RETURN, m_strP5Return);
-	DDX_Text(pDX, IDC_EDIT_P6_RETURN, m_strP6Return);
-	DDX_Text(pDX, IDC_EDIT_P7_RETURN, m_strP7Return);
-	DDX_Text(pDX, IDC_EDIT_P8_RETURN, m_strP8Return);
-	DDX_Text(pDX, IDC_EDIT_P9_RETURN, m_strP9Return);
-	DDX_Text(pDX, IDC_EDIT_P10_RETURN, m_strP10Return);
+	DDX_Text(pDX, IDC_EDIT_P1_ARRIVE, m_strArrive[0]);
+	DDX_Text(pDX, IDC_EDIT_P2_ARRIVE, m_strArrive[1]);
+	DDX_Text(pDX, IDC_EDIT_P3_ARRIVE, m_strArrive[2]);
+	DDX_Text(pDX, IDC_EDIT_P4_ARRIVE, m_strArrive[3]);
+	DDX_Text(pDX, IDC_EDIT_P5_ARRIVE, m_strArrive[4]);
+	DDX_Text(pDX, IDC_EDIT_P6_ARRIVE, m_strArrive[5]);
+	DDX_Text(pDX, IDC_EDIT_P7_ARRIVE, m_strArrive[6]);
+	DDX_Text(pDX, IDC_EDIT_P8_ARRIVE, m_strArrive[7]);
+	DDX_Text(pDX, IDC_EDIT_P9_ARRIVE, m_strArrive[8]);
+	DDX_Text(pDX, IDC_EDIT_P10_ARRIVE, m_strArrive[9]);
+	DDX_Text(pDX, IDC_EDIT_P1_SERVICE, m_strService[0]);
+	DDX_Text(pDX, IDC_EDIT_P2_SERVICE, m_strService[1]);
+	DDX_Text(pDX, IDC_EDIT_P3_SERVICE, m_strService[2]);
+	DDX_Text(pDX, IDC_EDIT_P4_SERVICE, m_strService[3]);
+	DDX_Text(pDX, IDC_EDIT_P5_SERVICE, m_strService[4]);
+	DDX_Text(pDX, IDC_EDIT_P6_SERVICE, m_strService[5]);
+	DDX_Text(pDX, IDC_EDIT_P7_SERVICE, m_strService[6]);
+	DDX_Text(pDX, IDC_EDIT_P8_SERVICE, m_strService[7]);
+	DDX_Text(pDX, IDC_EDIT_P9_SERVICE, m_strService[8]);
+	DDX_Text(pDX, IDC_EDIT_P10_SERVICE, m_strService[9]);
+	DDX_Text(pDX, IDC_EDIT_P1_WAIT, m_strWait[0]);
+	DDX_Text(pDX, IDC_EDIT_P2_WAIT, m_strWait[1]);
+	DDX_Text(pDX, IDC_EDIT_P3_WAIT, m_strWait[2]);
+	DDX_Text(pDX, IDC_EDIT_P4_WAIT, m_strWait[3]);
+	DDX_Text(pDX, IDC_EDIT_P5_WAIT, m_strWait[4]);
+	DDX_Text(pDX, IDC_EDIT_P6_WAIT, m_strWait[5]);
+	DDX_Text(pDX, IDC_EDIT_P7_WAIT, m_strWait[6]);
+	DDX_Text(pDX, IDC_EDIT_P8_WAIT, m_strWait[7]);
+	DDX_Text(pDX, IDC_EDIT_P9_WAIT, m_strWait[8]);
+	DDX_Text(pDX, IDC_EDIT_P10_WAIT, m_strWait[9]);
+	DDX_Text(pDX, IDC_EDIT_P1_PRIORITY, m_strPriority[0]);
+	DDX_Text(pDX, IDC_EDIT_P2_PRIORITY, m_strPriority[1]);
+	DDX_Text(pDX, IDC_EDIT_P3_PRIORITY, m_strPriority[2]);
+	DDX_Text(pDX, IDC_EDIT_P4_PRIORITY, m_strPriority[3]);
+	DDX_Text(pDX, IDC_EDIT_P5_PRIORITY, m_strPriority[4]);
+	DDX_Text(pDX, IDC_EDIT_P6_PRIORITY, m_strPriority[5]);
+	DDX_Text(pDX, IDC_EDIT_P7_PRIORITY, m_strPriority[6]);
+	DDX_Text(pDX, IDC_EDIT_P8_PRIORITY, m_strPriority[7]);
+	DDX_Text(pDX, IDC_EDIT_P9_PRIORITY, m_strPriority[8]);
+	DDX_Text(pDX, IDC_EDIT_P10_PRIORITY, m_strPriority[9]);
+	DDX_Text(pDX, IDC_EDIT_P1_RETURN, m_strReturn[0]);
+	DDX_Text(pDX, IDC_EDIT_P2_RETURN, m_strReturn[1]);
+	DDX_Text(pDX, IDC_EDIT_P3_RETURN, m_strReturn[2]);
+	DDX_Text(pDX, IDC_EDIT_P4_RETURN, m_strReturn[3]);
+	DDX_Text(pDX, IDC_EDIT_P5_RETURN, m_strReturn[4]);
+	DDX_Text(pDX, IDC_EDIT_P6_RETURN, m_strReturn[5]);
+	DDX_Text(pDX, IDC_EDIT_P7_RETURN, m_strReturn[6]);
+	DDX_Text(pDX, IDC_EDIT_P8_RETURN, m_strReturn[7]);
+	DDX_Text(pDX, IDC_EDIT_P9_RETURN, m_strReturn[8]);
+	DDX_Text(pDX, IDC_EDIT_P10_RETURN, m_strReturn[9]);
 }
 
 BEGIN_MESSAGE_MAP(CRRHRNSimulatorDlg, CDialogEx)
@@ -284,9 +284,10 @@ void CRRHRNSimulatorDlg::RoundRobin()
 	// TODO: 여기에 구현 코드 추가.
 	UpdateData(TRUE);
 	int TotalRunnningTime = 0, 
-		PS_ARRIVE[10], PS_WAIT[10] = { 0, }, PS_RETURN[10] = { 0, }, PS_PRIORITY[10] = { 0, };
+		PS_ARRIVE[10], PS_WAIT[10] = { 0, }, PS_RETURN[10] = { 0, }, PS_PRIORITY[10] = { 0, },
+		PS_SERVICE[10], MaxPriority = 0, TimeSlice = 4, PS_SERVICE_COPY[10];
 
-	// 총 실행시간 더하기
+	// 도착시간, 서비스시간 가져오기, 총 실행시간 구하기
 	PS_ARRIVE[0] = _tstoi(m_strP1Arrive);
 	PS_ARRIVE[1] = _tstoi(m_strP2Arrive);
 	PS_ARRIVE[2] = _tstoi(m_strP3Arrive);
@@ -297,15 +298,94 @@ void CRRHRNSimulatorDlg::RoundRobin()
 	PS_ARRIVE[7] = _tstoi(m_strP8Arrive);
 	PS_ARRIVE[8] = _tstoi(m_strP9Arrive);
 	PS_ARRIVE[9] = _tstoi(m_strP10Arrive);
-	for (int i : PS_ARRIVE)
+	//-----------------------------------
+	PS_SERVICE[0] = _tstoi(m_strP1Service);
+	PS_SERVICE[1] = _tstoi(m_strP2Service);
+	PS_SERVICE[2] = _tstoi(m_strP3Service);
+	PS_SERVICE[3] = _tstoi(m_strP4Service);
+	PS_SERVICE[4] = _tstoi(m_strP5Service);
+	PS_SERVICE[5] = _tstoi(m_strP6Service);
+	PS_SERVICE[6] = _tstoi(m_strP7Service);
+	PS_SERVICE[7] = _tstoi(m_strP8Service);
+	PS_SERVICE[8] = _tstoi(m_strP9Service);
+	PS_SERVICE[9] = _tstoi(m_strP10Service);
+	for (int i : PS_SERVICE)
 	{
 		TotalRunnningTime += i;
 	}
-
+	//-----------------------------------
+	for (int i = 0; i < 10; i++)
+	{
+		PS_SERVICE_COPY[i] = PS_SERVICE[i];
+	}
+	// 1.우선순위 부여
 	for (int i = 0; i < TotalRunnningTime; i++)
 	{
-		
+		// 1.1.1. 현재 실행중인 프로세스들 모두 우선순위++;
+		// 1.1.2. 현 시간에 도착한 프로세스에 우선순위++;
+		for (int j = 0; j < 10; j++)
+		{
+			if (PS_ARRIVE[j] == i && (PS_SERVICE[j] != 0))
+			{
+				PS_PRIORITY[j]++;
+			}
+		}
+		// 1.2. 우선순위가 가장 높은 프로세스 실행
+		for (int j = 0; j < 10; j++)
+		{
+			if (PS_PRIORITY[j] > PS_PRIORITY[MaxPriority])
+			{
+				MaxPriority = j;
+			}
+		}
+		// 1.3. 우선순위가 가장 높은 프로세스 타임슬라이스만큼 실행
+		if (PS_SERVICE_COPY[MaxPriority] >= 4)
+		{
+			PS_SERVICE_COPY[MaxPriority] -= 3;
+			i += 3;
+			PS_PRIORITY[MaxPriority] = 0;
+			continue;
+		}
+		// 1.4. 실행시간이 TimeSlice보다 작을경우 남은 값만 실행
+		else
+		{
+			PS_RETURN[MaxPriority] = PS_SERVICE_COPY[MaxPriority] + i;
+			i += (PS_SERVICE_COPY[MaxPriority] - 1);
+			PS_SERVICE_COPY[MaxPriority] = 0;
+			PS_PRIORITY[MaxPriority] = 0;
+			continue;
+		}
+		MaxPriority = 0;
 	}
+
+	// 반환시간 = 서비스시간 + 대기시간
+	for (int i = 0; i < 10; i++)
+	{
+		PS_RETURN[i] = PS_SERVICE[i] + PS_WAIT[i];
+	}
+	// 반환시간 대입
+	m_strP1Return.Format(_T("%d"), PS_RETURN[0]);
+	m_strP2Return.Format(_T("%d"), PS_RETURN[1]);
+	m_strP3Return.Format(_T("%d"), PS_RETURN[2]);
+	m_strP4Return.Format(_T("%d"), PS_RETURN[3]);
+	m_strP5Return.Format(_T("%d"), PS_RETURN[4]);
+	m_strP6Return.Format(_T("%d"), PS_RETURN[5]);
+	m_strP7Return.Format(_T("%d"), PS_RETURN[6]);
+	m_strP8Return.Format(_T("%d"), PS_RETURN[7]);
+	m_strP9Return.Format(_T("%d"), PS_RETURN[8]);
+	m_strP10Return.Format(_T("%d"), PS_RETURN[9]);
+	// 대기시간 대입
+	m_strP1Wait.Format(_T("%d"), PS_WAIT[0]);
+	m_strP2Wait.Format(_T("%d"), PS_WAIT[1]);
+	m_strP3Wait.Format(_T("%d"), PS_WAIT[2]);
+	m_strP4Wait.Format(_T("%d"), PS_WAIT[3]);
+	m_strP5Wait.Format(_T("%d"), PS_WAIT[4]);
+	m_strP6Wait.Format(_T("%d"), PS_WAIT[5]);
+	m_strP7Wait.Format(_T("%d"), PS_WAIT[6]);
+	m_strP8Wait.Format(_T("%d"), PS_WAIT[7]);
+	m_strP9Wait.Format(_T("%d"), PS_WAIT[8]);
+	m_strP10Wait.Format(_T("%d"), PS_WAIT[9]);
+	UpdateData(FALSE);
 }
 
 
