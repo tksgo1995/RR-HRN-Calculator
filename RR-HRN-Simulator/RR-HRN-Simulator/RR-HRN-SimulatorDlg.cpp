@@ -283,27 +283,28 @@ void CRRHRNSimulatorDlg::RoundRobin()
 {
 	// TODO: 여기에 구현 코드 추가.
 	UpdateData(TRUE);
-	int TotalRunnningTime = 0, PS[10];
+	int TotalRunnningTime = 0, 
+		PS_ARRIVE[10], PS_WAIT[10] = { 0, }, PS_RETURN[10] = { 0, }, PS_PRIORITY[10] = { 0, };
 
 	// 총 실행시간 더하기
-	PS[0] = _tstoi(m_strP1Arrive);
-	PS[1] = _tstoi(m_strP2Arrive);
-	PS[2] = _tstoi(m_strP3Arrive);
-	PS[3] = _tstoi(m_strP4Arrive);
-	PS[4] = _tstoi(m_strP5Arrive);
-	PS[5] = _tstoi(m_strP6Arrive);
-	PS[6] = _tstoi(m_strP7Arrive);
-	PS[7] = _tstoi(m_strP8Arrive);
-	PS[8] = _tstoi(m_strP9Arrive);
-	PS[9] = _tstoi(m_strP10Arrive);
-	for (int i : PS)
+	PS_ARRIVE[0] = _tstoi(m_strP1Arrive);
+	PS_ARRIVE[1] = _tstoi(m_strP2Arrive);
+	PS_ARRIVE[2] = _tstoi(m_strP3Arrive);
+	PS_ARRIVE[3] = _tstoi(m_strP4Arrive);
+	PS_ARRIVE[4] = _tstoi(m_strP5Arrive);
+	PS_ARRIVE[5] = _tstoi(m_strP6Arrive);
+	PS_ARRIVE[6] = _tstoi(m_strP7Arrive);
+	PS_ARRIVE[7] = _tstoi(m_strP8Arrive);
+	PS_ARRIVE[8] = _tstoi(m_strP9Arrive);
+	PS_ARRIVE[9] = _tstoi(m_strP10Arrive);
+	for (int i : PS_ARRIVE)
 	{
 		TotalRunnningTime += i;
 	}
 
 	for (int i = 0; i < TotalRunnningTime; i++)
 	{
-
+		
 	}
 }
 

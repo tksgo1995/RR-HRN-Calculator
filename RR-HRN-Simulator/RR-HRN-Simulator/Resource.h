@@ -63,7 +63,6 @@
 #define IDC_EDIT_P6_RETURN              1053
 #define IDC_EDIT_P7_RETURN              1054
 #define IDC_EDIT_P8_RETURN              1055
-#define IDC_EDIT_P10_PRIORITY2          1056
 #define IDC_EDIT_P10_RETURN             1056
 
 // Next default values for new objects
