@@ -264,4 +264,5 @@ void CRRHRNSimulatorDlg::RoundRobin()
 void CRRHRNSimulatorDlg::HRN()
 {
 	// TODO: 여기에 구현 코드 추가.
+	AfxMessageBox(_T("Hello world"));
 }
