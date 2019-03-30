@@ -281,6 +281,7 @@ void CRRHRNSimulatorDlg::All_Wait_EnableWindow(int b)
 
 void CRRHRNSimulatorDlg::RoundRobin()
 {
+	/*
 	// TODO: 여기에 구현 코드 추가.
 	UpdateData(TRUE);
 	int TotalRunnningTime = 0, 
@@ -385,13 +386,62 @@ void CRRHRNSimulatorDlg::RoundRobin()
 	m_strP8Wait.Format(_T("%d"), PS_WAIT[7]);
 	m_strP9Wait.Format(_T("%d"), PS_WAIT[8]);
 	m_strP10Wait.Format(_T("%d"), PS_WAIT[9]);
-	UpdateData(FALSE);
+	UpdateData(FALSE);*/
 }
 
 
 void CRRHRNSimulatorDlg::HRN()
 {
-	// TODO: 여기에 구현 코드 추가.
+	double AvgSum = 0;
+	double RetSum = 0;
+	double AvgWait[10] = { 0, };
+	double RetTime[10] = { 0, };
+	double Priority[10] = { 0, };
+	double Ret[10] = { 0, };
+	double StateRet[10] = { 0, };
+	//Formatting 
+	CString Pr[10] = { 0, };
+	CString Re[10] = { 0, };
+	CString AllAvg = 0;
+	CString AllRet = 0;
+	// ==============================================
+	for (int i = 0; i < 10; i++) {
+		Priority[i] = _wtof(m_strService[i]) + _wtof(m_strWait[i]) / _wtof(m_strService[i]);
+	}
+	
+	for (int i = 0; i < 10; i++) {
+		Pr[i].Format(_T("%.2lf", ), Priority[i]);
+	}
+	for(int i =0; i<10;i++){
+		m_strPriority[i] = Pr[i];
+	}
+	// ==============================================
+
+	for (int i = 0; i < 10; i++) {
+		AvgWait[i] = _wtoi(m_strWait[i]);
+		AvgSum += AvgWait[i];
+	}
+	AllAvg.Format(_T("%.2lf"),AvgSum / 10);
+	m_strResultWait = AllAvg;
+	// ===============================================
+
+	for (int i = 0; i < 10; i++) {
+		Ret[i] = _wtof(m_strService[i]) + _wtof(m_strWait[i]);
+	}
+
+	for (int i = 0; i < 10; i++) {
+		Re[i].Format(_T("%.2lf"), Ret[i]);
+	}
+
+	for (int i = 0; i < 10; i++) {
+		m_strReturn[i] = Re[i];
+		RetSum += Ret[i];
+	}
+
+	AllRet.Format(_T("%.2lf"), RetSum);
+	m_strResultReturn = AllRet;
+
+	UpdateData(FALSE);
 }
 
 
