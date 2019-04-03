@@ -57,4 +57,5 @@ public:
 	// 프로세스별 반환시간
 	CString m_strReturn[10];
 	void All_Return_EnableWindow(int b);
+	afx_msg void OnEnChangeEditResultWait();
 };

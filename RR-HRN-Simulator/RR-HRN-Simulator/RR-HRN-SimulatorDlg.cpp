@@ -132,6 +132,7 @@ BEGIN_MESSAGE_MAP(CRRHRNSimulatorDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_RADIO_HRN, &CRRHRNSimulatorDlg::OnBnClickedRadio2)
 	ON_BN_CLICKED(IDC_BUTTON_RUN, &CRRHRNSimulatorDlg::OnBnClickedButtonRun)
 	ON_BN_CLICKED(IDC_BUTTON_QUIT, &CRRHRNSimulatorDlg::OnBnClickedButtonQuit)
+	ON_EN_CHANGE(IDC_EDIT_RESULT_WAIT, &CRRHRNSimulatorDlg::OnEnChangeEditResultWait)
 END_MESSAGE_MAP()
 
 
@@ -410,6 +411,7 @@ void CRRHRNSimulatorDlg::RoundRobin()
 void CRRHRNSimulatorDlg::HRN()
 {
 	// TODO: 여기에 구현 코드 추가.
+	double count = 0;
 	double AvgSum = 0;
 	double RetSum = 0;
 	double AvgWait[10] = { 0, };
@@ -422,41 +424,33 @@ void CRRHRNSimulatorDlg::HRN()
 	CString Re[10] = { 0, };
 	CString AllAvg = 0;
 	CString AllRet = 0;
-	// ==============================================
+
+
 	for (int i = 0; i < 10; i++) {
 		Priority[i] = _wtof(m_strService[i]) + _wtof(m_strWait[i]) / _wtof(m_strService[i]);
+		Ret[i] = _wtof(m_strService[i]) + _wtof(m_strWait[i]);
+		
 	}
 
+	// 우선 순위
 	for (int i = 0; i < 10; i++) {
-		Pr[i].Format(_T("%.2lf"), Priority[i]);
-	}
-	for (int i = 0; i < 10; i++) {
-		m_strPriority[i] = Pr[i];
-	}
-	// ==============================================
+			Pr[i].Format(_T("%.2f"), Priority[i]);
+			Re[i].Format(_T("%.2f"), Ret[i]);
+			m_strReturn[i] = Re[i];
+			m_strPriority[i] = Pr[i];
 
-	for (int i = 0; i < 10; i++) {
 		AvgWait[i] = _wtoi(m_strWait[i]);
+		RetSum += Ret[i];
 		AvgSum += AvgWait[i];
 	}
-	AllAvg.Format(_T("%.2lf"), AvgSum / 10);
-	m_strResultWait = AllAvg;
+
 	// ===============================================
+	// 평균 반환 및 대기
 
-	for (int i = 0; i < 10; i++) {
-		Ret[i] = _wtof(m_strService[i]) + _wtof(m_strWait[i]);
-	}
+	AllAvg.Format(_T("%.2f"), AvgSum / 10);
+	m_strResultWait = AllAvg;
 
-	for (int i = 0; i < 10; i++) {
-		Re[i].Format(_T("%.2lf"), Ret[i]);
-	}
-
-	for (int i = 0; i < 10; i++) {
-		m_strReturn[i] = Re[i];
-		RetSum += Ret[i];
-	}
-
-	AllRet.Format(_T("%.2lf"), RetSum);
+	AllRet.Format(_T("%.2f"), RetSum / 10);
 	m_strResultReturn = AllRet;
 
 	UpdateData(FALSE);
@@ -508,4 +502,15 @@ void CRRHRNSimulatorDlg::All_Return_EnableWindow(int b)
 	GetDlgItem(IDC_EDIT_P8_RETURN)->EnableWindow(b);
 	GetDlgItem(IDC_EDIT_P9_RETURN)->EnableWindow(b);
 	GetDlgItem(IDC_EDIT_P10_RETURN)->EnableWindow(b);
+}
+
+
+void CRRHRNSimulatorDlg::OnEnChangeEditResultWait()
+{
+	// TODO:  RICHEDIT 컨트롤인 경우, 이 컨트롤은
+	// CDialogEx::OnInitDialog() 함수를 재지정 
+	//하고 마스크에 OR 연산하여 설정된 ENM_CHANGE 플래그를 지정하여 CRichEditCtrl().SetEventMask()를 호출하지 않으면
+	// 이 알림 메시지를 보내지 않습니다.
+
+	// TODO:  여기에 컨트롤 알림 처리기 코드를 추가합니다.
 }
